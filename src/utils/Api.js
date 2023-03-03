@@ -9,10 +9,7 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -21,10 +18,7 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -35,10 +29,7 @@ class Api {
       body: JSON.stringify(data)
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -49,10 +40,7 @@ class Api {
       body: JSON.stringify(data)
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -62,10 +50,7 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -75,10 +60,7 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -88,10 +70,7 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
   }
 
@@ -102,11 +81,12 @@ class Api {
       body: JSON.stringify(avatar)
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      return this._checkResponse(res);
     })
+  }
+
+  _checkResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${ res.status }`);
   }
 }
 
