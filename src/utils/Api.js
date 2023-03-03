@@ -9,11 +9,12 @@ class Api {
       headers: this._headers
     })
     .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${ res.status }`);
+      this._checkResponse(res);
     })
+  }
+
+  _checkResponse(res) {
+    res.ok ? res.json() : Promise.reject(`Ошибка: ${ res.status }`);
   }
 
   getInitialCards() {

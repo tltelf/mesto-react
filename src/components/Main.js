@@ -3,12 +3,13 @@ import editButton from '../images/profile__info-edit-button.svg';
 import addButton from '../images/profile__add-button.svg';
 import api from '../utils/Api.js';
 import Card from './Card.js';
+import avatar from '../images/profile__avatar.jpg';
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
 
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState('Жак-Ив Кусто');
+  const [userDescription, setUserDescription] = React.useState('Исследователь');
+  const [userAvatar, setUserAvatar] = React.useState(avatar);
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
