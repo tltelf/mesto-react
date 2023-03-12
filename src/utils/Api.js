@@ -54,24 +54,24 @@ class Api {
     })
   }
 
-  likeCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-    .then((res) => {
-      return this._checkResponse(res);
-    })
-  }
-
-  deleteLikeCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-    .then((res) => {
-      return this._checkResponse(res);
-    })
+  changeLikeCardStatus(id, isLiked) {
+    if (!isLiked) {
+      return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._checkResponse(res);
+      })
+    } else {
+      return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+      .then((res) => {
+        return this._checkResponse(res);
+      })
+    }
   }
 
   updateAvatar(avatar) {
