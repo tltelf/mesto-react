@@ -27,11 +27,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onC
       </section>
       <section className="elements">
         <ul className="elements__cards">
-          { cards.map(({ idForKey, ...prop }) => {
+          { cards.map((card) => {
             return (
               <Card 
-              key={ idForKey } 
-              {...prop} 
+              key={ card._id } 
+              card={ card }
               onCardClick= { onCardClick }
               onCardLike= { onCardLike }
               onCardDelete= { onCardDelete } />
