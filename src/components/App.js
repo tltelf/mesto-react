@@ -24,22 +24,14 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-  React.useEffect(() => {
-    api.getInitialCards()
-    .then((data) => {
+  React.useEffect(() => { 
+    Promise.all([api.getUserInfo(), api.getInitialCards()]) 
+    .then(([info, data]) => {
+      setCurrentUser(info);
       const newCards = data.map((card) => {
         return card;
       })
       setCards(newCards);
-    }).catch((err) => {
-      console.error(err); 
-    })
-  }, [])
-
-  React.useEffect(() => {
-    api.getUserInfo()
-    .then((info) => {
-      setCurrentUser(info);
     }).catch((err) => {
       console.error(err); 
     })
@@ -88,32 +80,32 @@ function App() {
   function handleUpdateUser({ name, about }) {
     api.setUserInfo({ name, about }).then((info) => {
       setCurrentUser(info);
+      closeAllPopups();
     }).catch((err) => {
       console.error(err); 
     });
-    closeAllPopups();
   }
 
   function handleUpdateAvatar({ avatar }) {
     api.updateAvatar({ avatar }).then((info) => {
       setCurrentUser(info);
+      closeAllPopups();
     }).catch((err) => {
       console.error(err); 
     });
-    closeAllPopups();
   }
 
   function handleAddPlaceSubmit({ name, link }) {
     api.renderCard({ name, link }).then((newCard) => {
       setCards([newCard, ...cards]);
+      closeAllPopups();
     }).catch((err) => {
       console.error(err); 
     });
-    closeAllPopups();
   }
 
   return (
-  <>
+
   <CurrentUserContext.Provider value={ currentUser }>
   <div className="page"> 
     <Header />
@@ -159,7 +151,7 @@ function App() {
 
   </div>
   </CurrentUserContext.Provider>
-  </>
+
   );
 }
 

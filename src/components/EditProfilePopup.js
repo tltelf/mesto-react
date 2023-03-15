@@ -4,28 +4,23 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
+  const [formValues, setFormValues] = React.useState({ name: "", job: "" });
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormValues(prevState => ({ ...prevState, [name]: value }));
   }
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setFormValues({ name: currentUser.name, job: currentUser.about });
   }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({
-      name: name,
-      about: description,
+      name: formValues.name,
+      about: formValues.job,
     });
   }
 
@@ -41,8 +36,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <label className="popup__container-form-label">
         <input 
           type="text" 
-          value={ name || "" }
-          onChange= { handleChangeName }
+          value={ formValues.name || "" }
+          onChange= { handleChange }
           name="name" 
           id="name-input" 
           className="popup__container-form-field popup__container-form-field_type_name" 
@@ -53,8 +48,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <label className="popup__container-form-label">
         <input 
           type="text"
-          value={ description || "" }
-          onChange={ handleChangeDescription } 
+          value={ formValues.job || "" }
+          onChange={ handleChange } 
           name="job" 
           id="job-input" 
           className="popup__container-form-field popup__container-form-field_type_job" 
